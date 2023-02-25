@@ -477,7 +477,7 @@ jobs:
               echo "------------------ Nothing to Delete/Can't Delete ------------------"  
             fi
 
-  workflows:
+workflows:
   default-cicd:
     jobs:
       - build-frontend
