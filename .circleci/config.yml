@@ -193,7 +193,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints: 
-            - "f2:19:8c:a3:0a:30:7d:ef:3d:80:89:bb:ca:0a:e1:d7" 
+            - "94:62:7e:fa:33:2f:6e:22:ae:da:bc:ce:60:9f:2e:d8"
       - attach_workspace:
           at: ~/
       - run:
@@ -295,7 +295,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints: 
-            - "f2:19:8c:a3:0a:30:7d:ef:3d:80:89:bb:ca:0a:e1:d7" 
+            - "94:62:7e:fa:33:2f:6e:22:ae:da:bc:ce:60:9f:2e:d8" 
       - attach_workspace:
           at: ~/
       - restore_cache:
@@ -491,13 +491,11 @@ workflows:
           requires: [build-frontend] 
       - scan-backend:
           requires: [build-backend]
-######## the above sequance is Okayyyy ######
-      - deploy-infrastructure:   
-          requires: [test-frontend, test-backend, scan-frontend, scan-backend]   #should require all scan jobs to be done successfully
+       - deploy-infrastructure:   
+          requires: [test-frontend, test-backend, scan-frontend, scan-backend]   
           filters:
             branches:
-              only: master
-
+              only: main
       - configure-infrastructure:
           requires: [deploy-infrastructure]
       - run-migrations:
