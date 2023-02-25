@@ -296,7 +296,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints: 
-            - "94:62:7e:fa:33:2f:6e:22:ae:da:bc:ce:60:9f:2e:d8" 
+            - "94:62:7e:fa:33:2f:6e:22:ae:da:bc:ce:60:9f:2e:d8"  
       - attach_workspace:
           at: ~/
       - restore_cache:
@@ -390,7 +390,7 @@ jobs:
             then
               echo "Frontend is working successfully"
                 # Change this to 0 after the job fails
-              exit 1
+              exit 0
             else
               exit 1
             fi
