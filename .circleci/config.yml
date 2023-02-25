@@ -477,10 +477,8 @@ jobs:
               echo "------------------ Nothing to Delete/Can't Delete ------------------"  
             fi
 
-   
-
-workflows:
-  default-workflow:
+  workflows:
+  default-cicd:
     jobs:
       - build-frontend
       - build-backend
@@ -491,12 +489,12 @@ workflows:
       - scan-frontend:
           requires: [build-frontend] 
       - scan-backend:
-          requires: [build-backend]
+          requires: [build-backend] 
       - deploy-infrastructure:   
-        requires: [test-frontend, test-backend, scan-frontend, scan-backend]   
-        filters:
-          branches:
-            only: main
+          requires: [test-frontend, test-backend, scan-frontend, scan-backend]    
+          filters:
+            branches:
+              only: master
       - configure-infrastructure:
           requires: [deploy-infrastructure]
       - run-migrations:
@@ -511,26 +509,3 @@ workflows:
           requires: [smoke-test]
       - cleanup:    
           requires: [cloudfront-update]
-              
-          
-############### .......... for Notification .......... ###################
-  # notify:
-  #   docker:
-  #     - image: 'cimg/base:stable'
-  #   steps:
-  #     - run: return 1
-  #     - slack/notify:
-  #           event: fail
-  #           custom: | 
-  #             {
-  #                 "blocks": [
-  #                     {
-  #                         "type": "section",
-  #                         "text": {
-  #                             "type": "mrkdwn",
-  #                             "text": "Failed: $CIRCLE_USERNAME's build of \n<$CIRCLE_BUILD_URL|$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME>\n(<https://app.circleci.com/pipelines/github/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME?branch=$CIRCLE_BRANCH|$CIRCLE_BRANCH>) \n- <$CIRCLE_BUILD_URL|$CIRCLE_JOB> failed" 
-  #                         }
-  #                     }
-  #                 ]
-  #             }           
-
