@@ -22,19 +22,18 @@ Resources:
           ToPort: 3030
           CidrIp: 0.0.0.0/0
         - IpProtocol: tcp 
-          FromPort: 9100  # port for Prometheus
+          FromPort: 9100  #  for Prometheus port Node Exporter
           ToPort: 9100
           CidrIp: 0.0.0.0/0
+
   EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: t2.micro
       SecurityGroups:
         - Ref: InstanceSecurityGroup
-      KeyName: udacity # If you use another key pair name, you should change this value to match.
-      # If this ami id is not available for you, you can find another (https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html)
-      # Ubuntu 18 or higher works fine
-      ImageId: ami-06878d265978313ca # Ubuntu 22 AMI (last AMI that you don't get errors when installing packages with ansible)
+      KeyName: udacity 
+      ImageId: ami-06878d265978313ca  #Tried different ami till work this Ubuntu 
       Tags:
         - Key: Name
           Value: !Sub backend-${ID}
